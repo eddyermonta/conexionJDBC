@@ -1,13 +1,17 @@
 package com.platzi;
 
 
-import com.platzi.model.Cliente;
-import com.platzi.repository.ClienteRepositoryImpl;
-import com.platzi.repository.CrudRepository;
+import com.platzi.entity.ClienteEntity;
+import com.platzi.util.UtilEntity;
+import jakarta.persistence.EntityManager;
+
+
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        CrudRepository<Cliente> clienteCrudRepository = new ClienteRepositoryImpl();
-        clienteCrudRepository.findAll().forEach(System.out::println);
+        EntityManager entityManager = UtilEntity.getEntityManager();
+        List<ClienteEntity> clients = entityManager.createQuery("select c from ClienteEntity c", ClienteEntity.class).getResultList();
+        clients.forEach(System.out::println);
     }
 }
